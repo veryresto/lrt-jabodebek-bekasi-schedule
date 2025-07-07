@@ -42,27 +42,67 @@
         .direction-selector button:hover, .direction-selector button.active {
             background-color: #2980b9;
         }
+        
+        /* Table container with horizontal scroll */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+            position: relative;
+        }
+        
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
             font-size: 14px;
+            min-width: 800px; /* Ensure table is wide enough to scroll */
         }
+        
         th, td {
             padding: 10px;
             text-align: center;
             border-bottom: 1px solid #ddd;
+            white-space: nowrap;
         }
+        
         th {
             background-color: #e9ecef;
             font-weight: 600;
         }
-        tr:nth-child(even) {
+        
+        /* Sticky first column */
+        table th:first-child,
+        table td:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 10;
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Header first column has higher z-index and different background */
+        table th:first-child {
+            z-index: 11;
+            background-color: #d9534f;
+            color: white;
+        }
+        
+        tr:nth-child(even) td:not(:first-child) {
             background-color: #f8f9fa;
         }
-        tr:hover {
+        
+        tr:hover td:not(:first-child) {
             background-color: #f1f1f1;
         }
+        
+        /* Keep first column background consistent */
+        tr:nth-child(even) td:first-child {
+            background-color: white;
+        }
+        
+        tr:hover td:first-child {
+            background-color: white;
+        }
+        
         .station-header {
             background-color: #d9534f;
             color: white;
@@ -85,14 +125,14 @@
 
         <div id="jatimulyaToDukuhAtas">
             <h2>Jati Mulya → Dukuh Atas BNI</h2>
-            <div style="overflow-x:auto;">
+            <div class="table-container">
                 <table id="table-jtm-da"></table>
             </div>
         </div>
 
         <div id="dukuhAtasToJatimulya" class="hidden">
             <h2>Dukuh Atas BNI → Jati Mulya</h2>
-            <div style="overflow-x:auto;">
+            <div class="table-container">
                 <table id="table-da-jtm"></table>
             </div>
         </div>
